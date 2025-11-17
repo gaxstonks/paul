@@ -3,8 +3,7 @@ export function hasActiveSubscription(user) {
   const t = user.planActiveUntil ? new Date(user.planActiveUntil) : null;
   return t && t > new Date();
 }
-
-export function getSubscriptionStatus(user) {
-  if (!user) return { active: false, expires: null };
-  return { active: hasActiveSubscription(user), expires: user?.planActiveUntil || null };
+export function getSubscriptionMessage(user) {
+  if (!user) return 'Nenhum plano ativo';
+  return hasActiveSubscription(user) ? `Plano ${user.plan} ativo até ${new Date(user.planActiveUntil).toLocaleDateString()}` : 'Sem plano ativo';
 }
